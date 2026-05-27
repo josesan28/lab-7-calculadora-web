@@ -1,0 +1,51 @@
+.btn {
+  border: none;
+  border-radius: 12px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  width: 100%;
+  height: 58px;
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+  background: var(--verde-escuro);
+  color: var(--branco);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.3);
+}
+
+.btn:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+}
+
+.op {
+  background: var(--azul);
+  color: var(--amarelo);
+  border: 1px solid var(--azul-claro);
+}
+
+.equals {
+  background: var(--amarelo);
+  color: var(--azul);
+  font-weight: 900;
+  flex: 1;
+}
+
+.clear {
+  background: #b22222;
+  color: var(--branco);
+}
+
+.fn {
+  background: var(--azul-claro);
+  color: var(--branco);
+}
+
+.zero {
+  flex: 2;
+}
+
+.dot {
+  background: var(--verde-escuro);
+  color: var(--amarelo);
+}

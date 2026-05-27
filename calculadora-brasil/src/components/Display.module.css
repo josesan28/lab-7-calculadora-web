@@ -1,0 +1,39 @@
+.display {
+  background: var(--azul);
+  border-radius: 12px;
+  padding: 12px 16px 8px;
+  margin-bottom: 16px;
+  border: 2px solid var(--azul-claro);
+  min-height: 84px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.op {
+  color: var(--amarelo);
+  font-size: 0.9rem;
+  font-weight: 700;
+  min-height: 1.2em;
+  letter-spacing: 2px;
+}
+
+.value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.6rem;
+  color: var(--amarelo);
+  letter-spacing: 3px;
+  text-shadow: 0 0 20px rgba(255, 223, 0, 0.5);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.error {
+  color: #ff4444;
+  text-shadow: 0 0 20px rgba(255, 68, 68, 0.6);
+  font-size: 2rem;
+}
