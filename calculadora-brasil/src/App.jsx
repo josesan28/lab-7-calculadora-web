@@ -3,7 +3,7 @@ import './index.css'
 
 const App = () => (
   <main>
-    <h1>Calculadora Brasileña</h1>
+    <h1>Calculadora Burguesinha</h1>
     <Calculator />
   </main>
 )
