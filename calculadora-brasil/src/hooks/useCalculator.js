@@ -1,13 +1,25 @@
 import { useState } from 'react'
 
-const MAX_DIGITS = 9
+const MAX_VISIBLE_CHARS = 9
 const MAX_VALUE = 999999999
 const OPS = ['+', '-', '*', '/', '%']
 
-const truncateResult = (num) => {
-  if (String(num).replace('-', '').replace('.', '').length <= MAX_DIGITS) return String(num)
-  const str = num.toPrecision(MAX_DIGITS)
-  return String(parseFloat(str))
+const formatResult = (value) => {
+  if (value === null || Number.isNaN(value) || !Number.isFinite(value)) return 'ERROR'
+  if (value < 0 || value > MAX_VALUE) return 'ERROR'
+  if (Number.isInteger(value)) return String(value)
+
+  const integerLength = String(Math.trunc(value)).length
+  const decimals = MAX_VISIBLE_CHARS - integerLength - 1
+
+  if (decimals <= 0) {
+    const rounded = String(Math.round(value))
+    return rounded.length <= MAX_VISIBLE_CHARS ? rounded : 'ERROR'
+  }
+
+  return value
+    .toFixed(decimals)
+    .replace(/\.?0+$/, '')
 }
 
 const applyOp = (a, op, b) => {
@@ -17,13 +29,6 @@ const applyOp = (a, op, b) => {
   if (op === '/') return b === 0 ? null : a / b
   if (op === '%') return b === 0 ? null : a % b
   return b
-}
-
-const validate = (num) => {
-  if (num === null || isNaN(num)) return 'ERROR'
-  if (num < 0) return 'ERROR'
-  if (num > MAX_VALUE) return 'ERROR'
-  return truncateResult(num)
 }
 
 export const useCalculator = () => {
@@ -36,9 +41,18 @@ export const useCalculator = () => {
     if (display === 'ERROR') return
     const current = fresh ? '' : display
     if (digit === '.' && current.includes('.')) return
-    const digits = current.replace('-', '').replace('.', '').length
-    if (digits >= MAX_DIGITS && digit !== '.') return
-    const next = current === '' || current === '0' ? digit : current + digit
+
+    let next = current
+    if (digit === '.') {
+      if (next === '' || next === '-') next = `${next}0`
+      next += '.'
+    } else if (next === '' || next === '0' || next === '-0') {
+      next = next.startsWith('-') ? `-${digit}` : digit
+    } else {
+      next += digit
+    }
+
+    if (next.length > MAX_VISIBLE_CHARS) return
     setDisplay(next)
     setFresh(false)
   }
@@ -48,7 +62,7 @@ export const useCalculator = () => {
     const current = parseFloat(display)
     if (pending !== null && !fresh) {
       const result = applyOp(pending, op, current)
-      const validated = validate(result)
+      const validated = formatResult(result)
       setDisplay(validated)
       setPending(validated === 'ERROR' ? null : result)
     } else {
@@ -62,7 +76,7 @@ export const useCalculator = () => {
     if (pending === null || display === 'ERROR') return
     const current = parseFloat(display)
     const result = applyOp(pending, op, current)
-    const validated = validate(result)
+    const validated = formatResult(result)
     setDisplay(validated)
     setPending(null)
     setOp(null)
@@ -74,7 +88,7 @@ export const useCalculator = () => {
     const num = parseFloat(display)
     if (num > 0) {
       const next = '-' + display
-      if (next.replace('.', '').length <= MAX_DIGITS + 1) setDisplay(next)
+      if (next.length <= MAX_VISIBLE_CHARS) setDisplay(next)
     } else {
       setDisplay(display.replace('-', ''))
     }

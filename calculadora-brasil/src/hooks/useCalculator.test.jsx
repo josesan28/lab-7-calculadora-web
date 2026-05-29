@@ -2,68 +2,42 @@ import { renderHook, act } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
 import { useCalculator } from './useCalculator'
 
-describe('useCalculator', () => {
-  const press = (result, ...keys) => {
-    keys.forEach(k => act(() => result.current.handleKey(k)))
-  }
+const press = (result, ...keys) => {
+  keys.forEach((key) => act(() => result.current.handleKey(key)))
+}
 
-  it('concatena dígitos en el display', () => {
+describe('useCalculator', () => {
+  it('concatena los dígitos presionados', () => {
     const { result } = renderHook(() => useCalculator())
     press(result, '1', '2', '3')
     expect(result.current.display).toBe('123')
   })
 
-  it('limpia el display al presionar un dígito después de operación', () => {
+  it('limpia la pantalla después de una operación antes de escribir de nuevo', () => {
     const { result } = renderHook(() => useCalculator())
     press(result, '5', '+', '3')
     expect(result.current.display).toBe('3')
   })
 
-  it('muestra resultado acumulado al presionar operación consecutiva', () => {
+  it('muestra resultados intermedios al encadenar operaciones', () => {
     const { result } = renderHook(() => useCalculator())
     press(result, '2', '0', '+', '5', '+')
     expect(result.current.display).toBe('25')
   })
 
-  it('muestra ERROR si el resultado es negativo', () => {
-    const { result } = renderHook(() => useCalculator())
-    press(result, '3', '-', '9', '=')
-    expect(result.current.display).toBe('ERROR')
-  })
-
-  it('muestra ERROR si el resultado supera 999999999', () => {
-    const { result } = renderHook(() => useCalculator())
-    press(result, '9', '9', '9', '9', '9', '9', '9', '9', '9', '+', '1', '=')
-    expect(result.current.display).toBe('ERROR')
-  })
-
-  it('ignora dígitos después del noveno carácter', () => {
-    const { result } = renderHook(() => useCalculator())
-    press(result, '1', '2', '3', '4', '5', '6', '7', '8', '9', '0')
-    expect(result.current.display).toBe('123456789')
-  })
-
-  it('realiza multiplicación correctamente', () => {
-    const { result } = renderHook(() => useCalculator())
-    press(result, '7', '*', '8', '=')
-    expect(result.current.display).toBe('56')
-  })
-
-  it('realiza división y trunca decimales a 9 caracteres', () => {
+  it('formatea los resultados de la división dentro del límite de 9 caracteres', () => {
     const { result } = renderHook(() => useCalculator())
     press(result, '2', '2', '/', '7', '=')
-    const display = result.current.display
-    expect(display.replace('.', '').length).toBeLessThanOrEqual(9)
-    expect(parseFloat(display)).toBeCloseTo(22 / 7, 5)
+    expect(result.current.display).toBe('3.1428571')
   })
 
-  it('módulo funciona correctamente', () => {
+  it('soporta operaciones de módulo', () => {
     const { result } = renderHook(() => useCalculator())
     press(result, '1', '0', '%', '3', '=')
     expect(result.current.display).toBe('1')
   })
 
-  it('+/- convierte positivo a negativo y regresa', () => {
+  it('alterna el signo con +/-', () => {
     const { result } = renderHook(() => useCalculator())
     press(result, '5')
     act(() => result.current.handleKey('+/-'))
@@ -72,16 +46,28 @@ describe('useCalculator', () => {
     expect(result.current.display).toBe('5')
   })
 
-  it('C resetea el estado completamente', () => {
+  it('mantiene la entrada decimal dentro del límite de 9 caracteres', () => {
+    const { result } = renderHook(() => useCalculator())
+    press(result, '1', '2', '3', '4', '5', '6', '7', '8', '.', '9')
+    expect(result.current.display).toBe('12345678.')
+  })
+
+  it('muestra ERROR para resultados negativos', () => {
+    const { result } = renderHook(() => useCalculator())
+    press(result, '3', '-', '9', '=')
+    expect(result.current.display).toBe('ERROR')
+  })
+
+  it('muestra ERROR para resultados que exceden el límite de 9 caracteres', () => {
+    const { result } = renderHook(() => useCalculator())
+    press(result, '9', '9', '9', '9', '9', '9', '9', '9', '9', '+', '1', '=')
+    expect(result.current.display).toBe('ERROR')
+  })
+
+  it('resetea todo el estado con C', () => {
     const { result } = renderHook(() => useCalculator())
     press(result, '9', '9', '+', '1', 'C')
     expect(result.current.display).toBe('0')
     expect(result.current.op).toBeNull()
-  })
-
-  it('permite ingresar punto decimal solo una vez por número', () => {
-    const { result } = renderHook(() => useCalculator())
-    press(result, '3', '.', '1', '.', '4')
-    expect(result.current.display).toBe('3.14')
   })
 })

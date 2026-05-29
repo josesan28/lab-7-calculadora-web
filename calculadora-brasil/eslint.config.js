@@ -5,12 +5,12 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import react from 'eslint-plugin-react'
 
 export default [
-  { ignores: ['dist', 'node_modules', '.storybook', 'storybook-static'] },
+  { ignores: ['dist', 'node_modules', 'storybook-static'] },
   {
-    files: ['src/**/*.{js,jsx}'],
+    files: ['**/*.{js,jsx}'],
     languageOptions: {
       ecmaVersion: 2020,
-      globals: globals.browser,
+      globals: { ...globals.browser, ...globals.node },
       parserOptions: {
         ecmaVersion: 'latest',
         ecmaFeatures: { jsx: true },
@@ -26,6 +26,7 @@ export default [
       ...js.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+      'react/jsx-uses-vars': 'error',
       'react/react-in-jsx-scope': 'off',
       semi: ['error', 'never'],
       'max-len': ['error', { code: 120 }],
