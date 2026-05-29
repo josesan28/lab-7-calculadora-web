@@ -7,11 +7,12 @@ const Calculator = () => {
   const { display, op, handleKey } = useCalculator()
   return (
     <div className={styles.calculator}>
-      <div className={styles.flag} aria-hidden="true" />
+      <div className={styles.header}>
+      </div>
+      <div className={styles.flag} aria-hidden='true' />
       <Display value={display} activeOp={op} />
       <Keyboard onKey={handleKey} />
     </div>
   )
 }
-
 export default Calculator

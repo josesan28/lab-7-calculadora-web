@@ -2,6 +2,7 @@ import styles from './CalcButton.module.css'
 
 const CalcButton = ({ label, variant = 'default', onClick }) => (
   <button
+    type='button'
     className={`${styles.btn} ${styles[variant]}`}
     onClick={() => onClick(label)}
     aria-label={label}

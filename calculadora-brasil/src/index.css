@@ -1,35 +1,54 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;700;900&display=swap');
 
 :root {
-  --verde: #009c3b;
+  --verde: #00a84f;
   --amarelo: #ffdf00;
   --azul: #002776;
   --branco: #f8f8f2;
-  --verde-escuro: #006b28;
+  --verde-escuro: #005a23;
   --azul-claro: #1a4fa0;
-  --shadow: 0 8px 32px rgba(0, 39, 118, 0.35);
+  --shadow: 0 20px 50px rgba(0, 0, 0, 0.32);
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
 
 body {
+  min-height: 100vh;
   font-family: 'Nunito', sans-serif;
-  background: var(--azul);
+  color: var(--branco);
+  background:
+    radial-gradient(circle at 15% 18%, rgba(255, 223, 0, 0.12) 0, transparent 28%),
+    radial-gradient(circle at 85% 20%, rgba(0, 168, 79, 0.15) 0, transparent 22%),
+    radial-gradient(circle at 50% 100%, rgba(26, 79, 160, 0.32) 0, transparent 40%),
+    linear-gradient(135deg, #00113a 0%, #002776 40%, #003d91 100%);
+  background-attachment: fixed;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg, transparent 34%, rgba(255, 223, 0, 0.06) 34% 36%, transparent 36%),
+    linear-gradient(245deg, transparent 63%, rgba(0, 168, 79, 0.09) 63% 65%, transparent 65%);
+  opacity: 0.9;
+}
+
+#root {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image:
-    radial-gradient(ellipse at 20% 50%, rgba(0, 156, 59, 0.25) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 20%, rgba(255, 223, 0, 0.15) 0%, transparent 50%);
-}
-
-#root { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
-
-h1 {
-  font-family: 'Bebas Neue', sans-serif;
-  color: var(--amarelo);
-  font-size: 2.2rem;
-  letter-spacing: 4px;
-  text-shadow: 2px 2px 0 var(--verde-escuro);
+  padding: 24px;
 }

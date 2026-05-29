@@ -1,44 +1,63 @@
 .btn {
-  border: none;
-  border-radius: 12px;
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.4rem;
-  letter-spacing: 1px;
+  flex: 1;
+  height: 56px;
+  border: 0;
+  border-radius: 14px;
   cursor: pointer;
-  width: 100%;
-  height: 58px;
-  transition: transform 0.08s ease, box-shadow 0.08s ease;
-  background: var(--verde-escuro);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.45rem;
+  letter-spacing: 0.08em;
   color: var(--branco);
-  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.3);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.03)),
+    var(--verde-escuro);
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease,
+    filter 0.12s ease;
+}
+
+.btn:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
 }
 
 .btn:active {
   transform: translateY(3px);
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.btn:focus-visible {
+  outline: 3px solid rgba(255, 223, 0, 0.86);
+  outline-offset: 2px;
 }
 
 .op {
-  background: var(--azul);
   color: var(--amarelo);
-  border: 1px solid var(--azul-claro);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.03)),
+    var(--azul);
 }
 
 .equals {
-  background: var(--amarelo);
   color: var(--azul);
   font-weight: 900;
-  flex: 1;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.08)),
+    var(--amarelo);
 }
 
 .clear {
-  background: #b22222;
-  color: var(--branco);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02)),
+    #9c2222;
 }
 
 .fn {
-  background: var(--azul-claro);
-  color: var(--branco);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.03)),
+    var(--azul-claro);
 }
 
 .zero {
@@ -46,6 +65,8 @@
 }
 
 .dot {
-  background: var(--verde-escuro);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.03)),
+    var(--verde);
   color: var(--amarelo);
 }

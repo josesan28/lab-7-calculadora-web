@@ -1,9 +1,11 @@
 import Calculator from './components/Calculator'
-import './index.css'
+import './App.css'
 
 const App = () => (
-  <main>
-    <h1>Calculadora Burguesinha</h1>
+  <main className='app-shell'>
+    <section className='app-copy'>
+      <h1>Calculadora Burguesinha</h1>
+    </section>
     <Calculator />
   </main>
 )

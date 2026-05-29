@@ -8,7 +8,7 @@ const R=[
   [['0','zero'],['.','dot'],['=','equals']],
 ]
 const Keyboard=({onKey})=>(
-  <div className={styles.keyboard}>
+  <div className={styles.keyboard} role='group' aria-label='Teclado de la calculadora'>
     {R.map((row,i)=>(
       <div key={i} className={styles.row}>
         {row.map(([l,v])=><CalcButton key={l} label={l} variant={v||'default'} onClick={onKey}/>)}
