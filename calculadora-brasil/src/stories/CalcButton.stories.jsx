@@ -4,6 +4,13 @@ export default {
   title: 'Calculadora/CalcButton',
   component: CalcButton,
   parameters: { backgrounds: { default: 'brasil' } },
+  decorators: [
+    (Story) => (
+      <div style={{ width: '92px' }}>
+        <Story />
+      </div>
+    ),
+  ],
   args: { onClick: (label) => console.log('pressed:', label) },
 }
 

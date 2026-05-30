@@ -39,10 +39,7 @@ body::before {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background:
-    linear-gradient(115deg, transparent 34%, rgba(255, 223, 0, 0.06) 34% 36%, transparent 36%),
-    linear-gradient(245deg, transparent 63%, rgba(0, 168, 79, 0.09) 63% 65%, transparent 65%);
-  opacity: 0.9;
+  background: none;
 }
 
 #root {
