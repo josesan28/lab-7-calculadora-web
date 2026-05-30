@@ -8,6 +8,8 @@ Calculadora hecha con React que permite hacer operaciones básicas como sumar, r
 ## Instalación
 
 ```bash
+git clone <url del repositorio>
+cd calculadora-brasil
 npm install
 ```
 
